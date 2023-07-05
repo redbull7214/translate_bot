@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "translate-bot"
+version = "0.1.0"
+description = ""
+authors = ["Никита Малин <redbull7214@gmail.com>"]
+readme = "README.md"
+packages = [{include = "translate_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiogram = "^2.25.1"
+sqlalchemy = "^2.0.17"
+psycopg2-binary = "^2.9.6"
+googletrans = "3.1.0a0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

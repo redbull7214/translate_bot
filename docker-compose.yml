@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  server_test:
+    image: "server:test"
+    restart: always
+    build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+          - APP_ENV=dev
+    command: python main.py
+    volumes:
+      - .:/opt/app/
+    ports:
+      - "8000:8000"
+    networks:
+      - renovation-test
+    depends_on:
+      db_test:
+        condition: service_healthy
+    environment:
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS-["http://localhost:3001", "http://127.0.0.1:3001"]}
+      DATABASE_URL: ${DATABASE_URL-postgresql+asyncpg://tg_bot_dev:OwOtBdfep9Frut@db_test/tg_bot_dev}
+
+  db_test:
+    container_name: db_test
+    image: "postgres:14.4-alpine"
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - renovation-test
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB-tg_bot_dev}
+      POSTGRES_USER: ${POSTGRES_USER-tg_bot_dev}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-OwOtBdfep9Frut}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U tg_bot_dev" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+networks:
+  renovation-test:
+    driver: bridge
