@@ -34,4 +34,4 @@ async def translate(message: str) -> str:
     # Используя Deepl код стоило бы заменить на следующий: 
     # auth_key = "api key here"  # Replace with your key
     # translator = deepl.Translator(auth_key)
-    # result = translator.translate_text(message, target_lang="EN")
+    # result = translator.translate_text(message, target_lang="RU")
