@@ -19,7 +19,7 @@ async def check_language(message: str) -> str | None:
     # input_language = translator.detected_source_lang(message)
 
 async def translate(message: str) -> str:
-    """Translate the message from RU into EN
+    """Translate the message from EN into RU
 
     Args:
         message(ru): str
@@ -28,7 +28,7 @@ async def translate(message: str) -> str:
     """
 
     translator = Translator()
-    result = translator.translate(message, dest="en")
+    result = translator.translate(message, dest="ru")
     return result.text
 
     # Используя Deepl код стоило бы заменить на следующий: 

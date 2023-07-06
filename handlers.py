@@ -35,17 +35,17 @@ async def command_start(message: types.Message):
                 f"Ваше сообщение: {mes.text}\nПеревод: {mes.translated_text}"
             )
     else:
-        await message.answer("Сначала зарегистрируйтесь командой старт")
+        await message.answer("Сначала зарегистрируйтесь командой /start")
 
 
 @dp.message_handler()
 async def echo(message: types.Message):
     """Переводит сообщение пользователя."""
     ln = await check_language(message=message.text)
-    if ln == "ru":
+    if ln == "en":
         res = await translate(message=message.text)
         user = await select_user(message.from_user.id)
         await save_message(text=message.text, translated_text=res, user_id=user.id)
         await message.answer(res)
     else:
-        await message.answer("Введите сообщение для перевода на русском языке")
+        await message.answer("Введите сообщение для перевода на английском языке")
